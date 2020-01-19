@@ -4,3 +4,16 @@
 
 This library provides Go applications a simple way to report dimensional statistics with optional support for Influx line protocol.
 
+## Installation
+
+```
+go get github.com/itzg/go-metrics
+```
+
+## Import
+
+```go
+import (
+	"github.com/itzg/go-metrics"
+)
+```
