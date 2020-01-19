@@ -3,7 +3,7 @@ package lineproto
 import (
 	"context"
 	"github.com/itzg/go-metrics"
-	"github.com/itzg/line-protocol-sender"
+	lpsender "github.com/itzg/line-protocol-sender"
 	"time"
 )
 
@@ -17,10 +17,10 @@ func ReportToLineProtocolSocket(ctx context.Context, registry metrics.Registry,
 
 	for {
 		select {
-		case <- ctx.Done():
+		case <-ctx.Done():
 			return
 
-		case timestamp := <- ticker.C:
+		case timestamp := <-ticker.C:
 			registry.Walk(timestamp, func(m *metrics.SnappedMeasurement) {
 				client.Send(convertMetric(m))
 			})
