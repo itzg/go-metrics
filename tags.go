@@ -14,6 +14,14 @@ type Tag struct {
 	Key, Value string
 }
 
+// T is a helper function to create a Tag
+func T(key, value string) Tag {
+	return Tag{
+		Key:   key,
+		Value: value,
+	}
+}
+
 type TagSet []Tag
 
 func (t *TagSet) Len() int {
@@ -29,7 +37,7 @@ func (t *TagSet) Swap(i, j int) {
 }
 
 // JoinTags joins individual tags into a TagSet
-func JoinTags(tags... Tag) TagSet {
+func JoinTags(tags ...Tag) TagSet {
 	var result TagSet
 	result = append(result, tags...)
 	return result

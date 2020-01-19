@@ -10,15 +10,15 @@ import (
 
 func TestRegistry_Walk(t *testing.T) {
 
-	registry := metrics.NewRegistry(metrics.Tag{"host", "h-1"})
-	measurement := registry.Measurement("testing", metrics.Tag{"instance", "i-1"})
+	registry := metrics.NewRegistry(metrics.T("host", "h-1"))
+	measurement := registry.Measurement("testing", metrics.Tag{Key: "instance", Value: "i-1"})
 	counterEach := measurement.Counter("amount_each")
 	counterTotal := measurement.CumulativeCounter("amount_total")
 	measurement.IntGauge("size", func() int64 {
-		return 3;
+		return 3
 	})
 	measurement.FloatGauge("pct", func() float64 {
-		return 0.5;
+		return 0.5
 	})
 
 	counterEach.Inc()
@@ -37,8 +37,8 @@ func TestRegistry_Walk(t *testing.T) {
 		{
 			Timestamp: timestamp,
 			Name:      "testing",
-			Tags:      metrics.JoinTags(metrics.Tag{"host","h-1"}, metrics.Tag{"instance","i-1"}),
-			Fields:    map[string]interface{}{"amount_each":int64(1),"amount_total":int64(1),"size":int64(3),"pct":float64(0.5)},
+			Tags:      metrics.JoinTags(metrics.Tag{"host", "h-1"}, metrics.Tag{"instance", "i-1"}),
+			Fields:    map[string]interface{}{"amount_each": int64(1), "amount_total": int64(1), "size": int64(3), "pct": float64(0.5)},
 		},
 	})
 
@@ -56,12 +56,12 @@ func TestRegistry_Walk(t *testing.T) {
 		{
 			Timestamp: timestamp,
 			Name:      "testing",
-			Tags:      metrics.JoinTags(metrics.Tag{"host","h-1"}, metrics.Tag{"instance","i-1"}),
+			Tags:      metrics.JoinTags(metrics.Tag{"host", "h-1"}, metrics.Tag{"instance", "i-1"}),
 			Fields: map[string]interface{}{
-				"amount_each":int64(0),
-				"amount_total":int64(2),
-				"size":int64(3),
-				"pct":float64(0.5)},
+				"amount_each":  int64(0),
+				"amount_total": int64(2),
+				"size":         int64(3),
+				"pct":          float64(0.5)},
 		},
 	})
 }
